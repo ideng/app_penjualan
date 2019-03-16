@@ -1,0 +1,30 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+
+# 1-level
+RewriteRule ^([^/.]+)/{0,1}$  index.php?p=$1 [QSA,L]
+RewriteRule ^administrator/([^/.]+)/{0,1}$  index.php?p=$1 [QSA,L]
+RewriteRule ^manage_product/([^/.]+)/{0,1}$  index.php?p=$1 [QSA,L]
+RewriteRule ^inventory/([^/.]+)/{0,1}$  index.php?p=$1 [QSA,L]
+
+# 2-level
+# RewriteRule ^home/([^/.]+)/{0,1}$  index.php?hal=home&key=$1 [QSA,L]
+# RewriteRule ^faces/([0-9]+)/{0,1}$  index.php?hal=faces&value=$1 [QSA,L]
+RewriteRule ^kriteria_data/detail/([^/.]+)/{0,1}$  index.php?hal=kriteria_data&id=$1 [QSA,L]
+RewriteRule ^nilai_data/detail/([^/.]+)/{0,1}$  index.php?hal=nilai_data&id=$1 [QSA,L]
+
+# 3-level
+# RewriteRule ^clubs/([^/.]+)/([0-9]+)/{0,1}$  index.php?hal=clubs&key=$1&value=$2 [QSA,L]
+# RewriteRule ^photos/([0-9]+)/([0-9]+)/{0,1}$  index.php?hal=photos&value1=$1&value2=$2 [QSA,L]
+RewriteRule ^nilai_data/detail/([^/.]+)/detail_nilai/([^/.]+)/{0,1}$  index.php?hal=nilai_data&id=$1&id_nilai=$2 [QSA,L]
+
+# 4-level
+RewriteRule ^nilai_data/detail/([^/.]+)/detail_nilai/([^/.]+)/([^/.]+)/{0,1}$  index.php?hal=nilai_data&id=$1&id_nilai=$2&detail=$3 [QSA,L]
+
+# all other cases
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule .+ - [L]
+RewriteRule ^([^/]+)/{0,1}$ index.php?hal=other&key=$1 [QSA,L]
+
+</IfModule>

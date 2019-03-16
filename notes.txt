@@ -1,0 +1,38 @@
+@ 2019-01-13
+- Buat Menu :
+	-> Administrator
+		-> Data Admin
+		-> Tipe Admin
+	-> Manage Product
+		-> Tipe Product
+		-> Data Product
+	-> Inventory
+		-> Data Warehouse
+		-> Data Rak
+		-> Penerimaan Barang
+		-> Pengeluaran Barang
+	-> Logout
+
+@ 2019-01-20
+- Pembuatan Halaman Login (CLEAR!)
+- Pembuatan Tabel User (CLEAR!)
+- Pembuatan Halaman Error (CLEAR!)
+- Pembuatan Koneksi Untuk DB (CLEAR!)
+- Pembuatan Tabel dan Form untuk Data Admin
+	-> Desain
+	-> Js
+	-> ServerSide
+
+@ 2019-02-09
+- Buat 3 Function untuk load 3 view berbeda
+	- Buat Form dengan isi : input text, input password, input select, input textarea
+	- Buat Tabel baru
+	- Buat tampilan data seperti invoice form pada adminLTE
+
+@ 2019-03-10
+- Buat tabel baru bernama tb_tipe_admin dengan kolom
+	- kd_tipe_admin (varchar 10)
+	- nm_tipe_admin (varchar 255)
+	- tgl_input (datetime)
+	- tgl_edit (datetime)
+- Buat tampilan pada menu Tipe Admin seperti yang dicontohkan pada Data Admin

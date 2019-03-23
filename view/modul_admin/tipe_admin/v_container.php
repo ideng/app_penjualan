@@ -6,8 +6,8 @@
 	</h1>
 	<ol class="breadcrumb">
 		<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-		<li><a href="#">Examples</a></li>
-		<li class="active">Blank page</li>
+		<li><a href="#">Modul Administator</a></li>
+		<li class="active">Tipe Admin</li>
 	</ol>
 </section>
 
@@ -17,11 +17,10 @@
 	<!-- Default box -->
 	<div class="box">
 		<div class="box-header with-border">
-			<h3 class="box-title">Title</h3>
+			<h3 class="box-title">Tabel Tipe Admin</h3>
 			<div class="box-tools pull-right">
-				<button class="btn btn-box-tool" data-toggle="tooltip" title="Tambah Data"><i class="fa fa-plus"></i></button>
+				<button class="btn btn-box-tool" id="idBtnAdd" data-toggle="tooltip" title="Tambah Data"><i class="fa fa-pencil"></i></button>
 				<button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Sembunyikan"><i class="fa fa-minus"></i></button>
-				<button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
 			</div>
 		</div>
 		<div class="box-body" id="idBoxTable">
@@ -34,6 +33,16 @@
 <script type="text/javascript">
 	load_table();
 
+	$(document).off('click', '#idBtnAdd').on('click', '#idBtnAdd', function() {
+		$(this).slideUp(function() {
+			load_formcontainer('');
+		});
+	});
+
+	$(document).off('click', '#idBtnClose').on('click', '#idBtnClose', function() {
+		$('#idBtnAdd').slideDown();
+	});
+
 	function load_table() {
 		$('#idBoxTable').slideUp(function() {
 			$.ajax({
@@ -44,6 +53,23 @@
 					$('#idBoxTable').slideDown();
 				}
 			});
+		});
+	}
+
+	function load_formcontainer(p_key) {
+		if (p_key != '') {
+			$('#idBtnAdd').slideDown();
+		}
+		$('.cl-container-form').slideUp(function() {
+			$(this).remove();
+		});
+		$.ajax({
+			type: 'POST',
+			url: 'view/modul_admin/tipe_admin/act.php',
+			data: {'act': 'view_form', 'primary_key': p_key},
+			success: function(html) {
+				$('.content').prepend(html);
+			}
 		});
 	}
 </script>

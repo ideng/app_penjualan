@@ -1,3 +1,7 @@
+<?php
+$base_url = 'view/modul_admin/data_admin/';
+?>
+
 <!-- Content Header (Page header) -->
 <section class="content-header">
 	<h1>
@@ -24,11 +28,16 @@
 				<!-- <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Tutup"><i class="fa fa-times"></i></button> -->
 			</div>
 		</div>
-		<div class="box-body" id="idBoxTable"></div><!-- /.box-body -->
+		<div class="box-body">
+			<div id="idBoxLoader" class="cl-box-loader" style="color: #337ab7; text-align: center;">
+				<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+			</div>
+			<div id="idBoxTable"></div>
+		</div><!-- /.box-body -->
 		
 		<!-- <div class="box-footer">
 			Footer
-		</div> --><!-- /.box-footer-->
+		</div> --><!-- /.box-footer -->
 	</div><!-- /.box -->
 
 </section><!-- /.content -->
@@ -48,13 +57,17 @@
 
 	function load_table() {
 		$('#idBoxTable').slideUp(function() {
-			$.ajax({
-				type: 'POST',
-				url: 'view/modul_admin/data_admin/v_table.php',
-				success: function(html) {
-					$('#idBoxTable').html(html);
-					$('#idBoxTable').slideDown();
-				}
+			$('#idBoxLoader').fadeIn(function() {
+				$.ajax({
+					type: 'POST',
+					url: '<?php echo $base_url.'v_table.php'; ?>',
+					success: function(html) {
+						$('#idBoxTable').html(html);
+						$('#idBoxLoader').fadeOut(function() {
+							$('#idBoxTable').slideDown();
+						});
+					}
+				});
 			});
 		});
 	}
@@ -68,10 +81,28 @@
 		});
 		$.ajax({
 			type: 'POST',
-			url: 'view/modul_admin/data_admin/act.php',
+			url: '<?php echo $base_url.'act.php'; ?>',
 			data: {'act': 'view_form', 'primary_key': p_key},
 			success: function(html) {
 				$('.content').prepend(html);
+			}
+		});
+	}
+
+	function submit_form(event, form_id) {
+		event.preventDefault();
+		var form_data = new FormData(form_id);
+		$.ajax({
+			type: 'POST',
+			url: '<?php echo $base_url.'act.php'; ?>',
+			data: form_data,
+			contentType: false,
+			processData:false,
+			success: function(data) {
+				$('#idFormAlert').slideUp(function() {
+					$('#idFormAlert').html(data.alert);
+					$('#idFormAlert').slideDown();
+				});
 			}
 		});
 	}

@@ -29,6 +29,20 @@ function input_get($input_name = '', $is_array = FALSE) {
 	return $filter;
 }
 
+function hash_text($text) {
+	$options = [
+		'cost' => 12,
+	];
+	$result = password_hash($text, PASSWORD_BCRYPT, $options);
+	return $result;
+}
+
+function verify_hash($text, $hash) {
+	$decrypt = password_verify($text, $hash);
+	return $decrypt;
+}
+
+
 function format_date($date, $format){
 	$tgl = new DateTime($date);
 	$tgl_formatted = $tgl->format($format);

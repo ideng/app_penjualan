@@ -14,7 +14,7 @@
 		<!-- Ionicons -->
 		<link rel="stylesheet" href="assets/bootstrap/fonts/ionicons-2.0.1/css/ionicons.min.css">
 	    <!-- DataTables -->
-	    <link rel="stylesheet" href="assets/plugins/datatables/dataTables.bootstrap.css">
+	    <link rel="stylesheet" href="assets/plugins/DataTables-1.10.19/media/css/dataTables.bootstrap.min.css">
 	    <!-- daterange picker -->
 		<link rel="stylesheet" href="assets/plugins/daterangepicker-master/daterangepicker.css">
 		<!-- Theme style -->
@@ -33,8 +33,8 @@
 		<!-- jQuery 2.1.4 -->
 		<script src="assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 	    <!-- DataTables -->
-	    <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
-	    <script src="assets/plugins/datatables/dataTables.bootstrap.min.js"></script>
+	    <script src="assets/plugins/DataTables-1.10.19/media/js/jquery.dataTables.min.js"></script>
+	    <script src="assets/plugins/DataTables-1.10.19/media/js/dataTables.bootstrap.min.js"></script>
 		<!-- Bootstrap 3.3.5 -->
 		<script src="assets/bootstrap/js/bootstrap.min.js"></script>
 	</head>

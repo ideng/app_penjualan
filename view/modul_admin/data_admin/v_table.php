@@ -1,19 +1,26 @@
 <?php
 $base_path = 'view/modul_admin/data_admin/';
 ?>
-<table id="idDataTables" class="table table-bordered table-striped" style="width:100%">
-	<thead>
-		<tr>
-			<th>No</th>
-			<th>Opsi</th>
-			<th>User ID</th>
-			<th>User Type Key</th>
-			<th>Username</th>
-			<th>Tgl Input</th>
-			<th>Tgl Edit</th>
-		</tr>
-	</thead>
-</table>
+<style type="text/css">
+	td.dt-center { text-align: center; }
+	td.dt-right { text-align: right; }
+	td.dt-left { text-align: left; }
+</style>
+<div class="table-responsive">
+	<table id="idDataTables" class="table table-bordered table-striped table-hover" style="width:100%">
+		<thead>
+			<tr>
+				<th style="width: 2%;">No</th>
+				<th style="width: 3%;">Opsi</th>
+				<th style="width: 15%;">User ID</th>
+				<th style="width: 20%;">User Type</th>
+				<th style="width: 20%;">Username</th>
+				<th style="width: 20%;">Tgl Input</th>
+				<th style="width: 20%;">Tgl Edit</th>
+			</tr>
+		</thead>
+	</table>
+</div>
 
 <script type="text/javascript">
 	$.fn.dataTableExt.oApi.fnPagingInfo = function (oSettings) {
@@ -54,6 +61,7 @@ $base_path = 'view/modul_admin/data_admin/';
 		},
 		"columnDefs": [
 			{"data": null, "searchable": false, "orderable": false, "className": "dt-center", "targets": 0},
+			{"searchable": false, "orderable": false, "className": "dt-center", "targets": 1},
 		],
 		"order":[2, 'asc'],
 		"rowCallback": function (row, data, iDisplayIndex) {

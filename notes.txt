@@ -36,3 +36,6 @@
 	- tgl_input (datetime)
 	- tgl_edit (datetime)
 - Buat tampilan pada menu Tipe Admin seperti yang dicontohkan pada Data Admin
+
+@ 2019-03-23
+- Materi submit form

@@ -99,7 +99,7 @@ class M_admin {
 
 	public function insert($data = []) {
 		if (!empty($data)) {
-			$query = 'INSERT INTO '.$this->tbl_name.' SET';
+			$query = 'INSERT INTO '.$this->tbl_name.' SET ';
 			foreach ($data as $column => $value) {
 				$querys[] = $column.' = ?';
 				$val[] = $value;

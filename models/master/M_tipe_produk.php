@@ -2,10 +2,10 @@
 $base_path = isset($base_path)?$base_path:'../../';
 include_once $base_path.'config/helpers.php';
 
-class M_admin {
+class M_tipe_produk {
 	private $title_name = 'Tipe Produk';
 	private $tbl_name = 'tipe_produk';
-	private $p_key = 'kd_produk';
+	private $p_key = 'kd_tipe_produk';
 	private $db = NULL;
 
 	public function __construct($db) {
@@ -26,11 +26,14 @@ class M_admin {
 		$data['columns'] = array(
 			array( 'db' => 'a.'.$this->p_key, 'dt' => 1, 'field' => $this->p_key,
 				'formatter' => function($d, $row) {
-					return $this->tbl_btn($d, $row[4]);
+					return $this->tbl_btn($d, $row[2]);
 				} ),
-			array( 'db' => 'a.kd_parent_tipe', 'dt' => 2, 'field' => 'kd_parent_tipe' ),
-			array( 'db' => 'a.nm_tipe_produk', 'dt' => 3, 'field' => 'nm_tipe_produk' ),
-			array( 'db' => 'b.nm_produk', 'dt' => 4, 'field' => 'nm_produk' ),
+			array( 'db' => 'a.'.$this->p_key, 'dt' => 2, 'field' => $this->p_key ),
+			array( 'db' => 'b.nm_tipe_produk AS nm_parent', 'dt' => 3, 'field' => 'nm_parent',
+				'formatter' => function($d) {
+					return empty_replace($d);
+				} ),
+			array( 'db' => 'a.nm_tipe_produk', 'dt' => 4, 'field' => 'nm_tipe_produk' ),
 			array( 'db' => 'a.tgl_input', 'dt' => 5, 'field' => 'tgl_input',
 				'formatter' => function($d) {
 					return format_date($d, 'd-m-Y H:i:s');
@@ -44,7 +47,7 @@ class M_admin {
 		// SQL server connection information
 		$data['sql_details'] = datatables_conn();
 
-		$data['joinQuery'] = 'FROM '.$this->tbl_name.' a LEFT JOIN data_produk b ON b.tipe_produk_kd = a.kd_tipe_produk';
+		$data['joinQuery'] = 'FROM '. $this->tbl_name .' a LEFT JOIN '. $this->tbl_name .' b ON b.'. $this->p_key .' = a.kd_parent_tipe';
 		$data['extraWhere'] = '';
 		$data['groupBy'] = '';
 		$data['having'] = '';
@@ -149,7 +152,14 @@ class M_admin {
 		}
 		$err_msg = $act['result']?'Berhasil':'Gagal';
 		$msg['act'] = $act;
-		$msg['alert'] = $err_msg.' '.$label.' Data Admin!';
+		$msg['alert'] = $err_msg.' '.$label.' '.$this->title_name;
 		return $msg;
+	}
+
+	public function get_parent($my_id = '') {
+		$query = 'SELECT * FROM '. $this->tbl_name .' WHERE '. $this->p_key .' != ?';
+		$stmt = $this->db->prepare($query);
+		$stmt->execute([$my_id]);
+		return $stmt;
 	}
 }

@@ -1,11 +1,13 @@
 <?php
-$base_path = 'view/modul_produk/tipe_produk/';
+$base_path = 'view/modul_produk/tipe_product/';
 ?>
 <table id="idDataTables" class="table table-bordered table-striped" style="width:100%">
 	<thead>
 		<tr>
 			<th>No</th>
 			<th>Opsi</th>
+			<th>Kode</th>
+			<th>Tipe Produk Parent</th>
 			<th>Nama Tipe Produk</th>
 			<th>Tgl Input</th>
 			<th>Tgl Edit</th>
@@ -52,6 +54,9 @@ $base_path = 'view/modul_produk/tipe_produk/';
 		},
 		"columnDefs": [
 			{"data": null, "searchable": false, "orderable": false, "className": "dt-center", "targets": 0},
+			{"searchable": false, "orderable": false, "targets": 1},
+			{"visible": false, "targets": 2},
+			{"searchable": false, "orderable": false, "targets": 3},
 		],
 		"order":[2, 'asc'],
 		"rowCallback": function (row, data, iDisplayIndex) {

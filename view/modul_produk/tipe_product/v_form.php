@@ -10,35 +10,39 @@
 	</div>
 
 	  <!-- form start -->
-	<form id="idForm" action="" method="POST" role="form">
-		<div class="box-body">
+	<div class="box-body">
+		<div id="idFormAlert">
+			<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<h4><i class="icon fa fa-ban"></i> Alert!</h4>
+				Danger alert preview. This alert is dismissable. A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.
+			</div>
+		</div>
+		<form id="idForm" action="" method="POST" role="form">
 			<div class="form-group">
 				<label for="NamaTipeProduk">Nama Tipe Produk</label>
-				<input type="text" name="txtNamaTipeProduk" id="idNamaTipeProduk" class="form-control" placeholder="Nama Tipe Produk" value="<?php echo $tipe_produk['nm_tipe_produk']; ?>">
+				<input type="hidden" name="act" value="submit_form">
+				<input type="hidden" name="txtKode" value="<?php echo $tipe_produk->kd_tipe_produk; ?>">
+				<input type="text" name="txtNamaTipeProduk" id="idNamaTipeProduk" class="form-control" placeholder="Nama Tipe Produk" value="<?php echo $tipe_produk->nm_tipe_produk; ?>">
 			</div>
 			<div class="form-group">
-				<label>Tanggal Input</label>
-				<div class="input-group">
-					<div class="input-group-addon">
-						<i class="fa fa-calendar"></i>
-					</div>
-					<input type="text" name="txtTglInput" id="idTxtTglInput" class="form-control datepicker" value="<?php echo $tipe_admin['tgl_input']; ?>">
-				</div><!-- /.input group -->
-			</div><!-- /.form group -->
-			<div class="form-group">
-				<label>Tanggal Edit</label>
-				<div class="input-group">
-					<div class="input-group-addon">
-						<i class="fa fa-calendar"></i>
-					</div>
-					<input type="text" name="txtTglEdit" id="idTxtTglEdit" class="form-control datepicker" value="<?php echo $tipe_admin['tgl_edit']; ?>">
-				</div><!-- /.input group -->
-			</div><!-- /.form group -->
+				<label for="idSelTipeParent">Nama Parent</label>
+				<select name="selTipeParent" id="idSelTipeParent" class="form-control">
+					<option value="">-- Pilih Parent --</option>
+					<?php
+					while ($row = $opts_parents->fetch(PDO::FETCH_OBJ)) {
+						# code...
+						$selected = $tipe_produk->kd_tipe_parent == $row->kd_tipe_produk?'selected':'';
+						echo '<option value=\''.$row->kd_tipe_produk.'\' '.$selected.'>'.$row->nm_tipe_produk.'</option>';
+					}
+					?>
+				</select>
+			</div>
 			<div class="box-footer">
 				<button type="submit" class="btn btn-primary">Submit</button>
 			</div>
-		</div><!-- /.box-body -->
-	</form>
+		</form>
+	</div><!-- /.box-body -->
 	<!-- <div class="box-footer">
 		Footer
 	</div> --><!-- /.box-footer-->
@@ -55,5 +59,9 @@
 		    },
 	    });
     });
+
+		$(document).off('submit', '#idForm').on('submit', '#idForm', function(event) {
+			submit_form(event, this);
+		});
 </script>
   

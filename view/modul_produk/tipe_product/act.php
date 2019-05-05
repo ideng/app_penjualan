@@ -25,5 +25,17 @@ if ($post_act == 'view_form') {
 	// Jika primary key kosong, load form kosong
 	$primary_key = input_post('primary_key');
 	$tipe_produk = $M_Tipe_Produk->get_row($primary_key);
+	$opts_parents = $M_Tipe_Produk->get_parent($primary_key);
 	include_once 'v_form.php';
+} elseif ($post_act == 'submit_form') {
+	$submit_data = [
+		'kd_tipe_produk' => input_post('txtKode'),
+		'kd_parent_tipe' => input_post('txtNamaTipeProduk'),
+		'nm_tipe_produk' => input_post('selTipeParent'),
+	];
+	
+	$data = $M_Tipe_Produk->submit_data($submit_data);
+	
+	header('Content-Type: application/json');
+	echo json_encode($data);
 }

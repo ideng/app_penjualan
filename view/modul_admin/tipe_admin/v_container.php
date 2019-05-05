@@ -1,3 +1,7 @@
+<?php
+$base_url = 'view/modul_admin/tipe_admin';
+?>
+
 <!-- Content Header (Page header) -->
 <section class="content-header">
 	<h1>
@@ -52,7 +56,7 @@
 			$('#idBoxLoader').fadeIn(function() {
 				$.ajax({
 					type: 'POST',
-					url: '<?php echo $base_url.'v_table.php'; ?>',
+					url: '<?php echo $base_url.'/v_table.php'; ?>',
 					success: function(html) {
 						$('#idBoxTable').html(html);
 						$('#idBoxLoader').fadeOut(function() {
@@ -73,7 +77,7 @@
 		});
 		$.ajax({
 			type: 'POST',
-			url: 'view/modul_admin/tipe_admin/act.php',
+			url: <?php echo $base_url.'/act.php'; ?>,
 			data: {'act': 'view_form', 'primary_key': p_key},
 			success: function(html) {
 				$('.content').prepend(html);

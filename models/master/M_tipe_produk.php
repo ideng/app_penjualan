@@ -155,7 +155,7 @@ class M_tipe_produk {
 		$icon = $act['result']?'fa-check':'fa-ban';
 		$alert = $err_msg.' '.$label.' '.$this->title_name;
 		$msg['act'] = $act;
-		$msg['alert'] = render_alert($is_success, TRUE, $icon, $label, $alert);
+		$msg['alert'] = render_alert($is_success, TRUE, $icon, $err_msg, $alert);
 		return $msg;
 	}
 

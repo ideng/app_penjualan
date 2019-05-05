@@ -1,5 +1,5 @@
 <?php
-$base_url = 'view/modul_admin/data_admin/';
+$base_url = 'view/modul_admin/data_admin';
 ?>
 
 <!-- Content Header (Page header) -->
@@ -32,6 +32,7 @@ $base_url = 'view/modul_admin/data_admin/';
 			<div id="idBoxLoader" class="cl-box-loader" style="color: #337ab7; text-align: center;">
 				<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
 			</div>
+			<div id="idTableAlert"></div>
 			<div id="idBoxTable"></div>
 		</div><!-- /.box-body -->
 		
@@ -60,7 +61,7 @@ $base_url = 'view/modul_admin/data_admin/';
 			$('#idBoxLoader').fadeIn(function() {
 				$.ajax({
 					type: 'POST',
-					url: '<?php echo $base_url.'v_table.php'; ?>',
+					url: '<?php echo $base_url.'/v_table.php'; ?>',
 					success: function(html) {
 						$('#idBoxTable').html(html);
 						$('#idBoxLoader').fadeOut(function() {
@@ -76,16 +77,20 @@ $base_url = 'view/modul_admin/data_admin/';
 		if (p_key != '') {
 			$('#idBtnAdd').slideDown();
 		}
-		$('.cl-container-form').slideUp(function() {
-			$(this).remove();
-		});
+		close_container('.cl-container-form');
 		$.ajax({
 			type: 'POST',
-			url: '<?php echo $base_url.'act.php'; ?>',
+			url: '<?php echo $base_url.'/act.php'; ?>',
 			data: {'act': 'view_form', 'primary_key': p_key},
 			success: function(html) {
 				$('.content').prepend(html);
 			}
+		});
+	}
+
+	function close_container(class_name) {
+		$(class_name).slideUp(function() {
+			$(this).remove();
 		});
 	}
 
@@ -94,11 +99,19 @@ $base_url = 'view/modul_admin/data_admin/';
 		var form_data = new FormData(form_id);
 		$.ajax({
 			type: 'POST',
-			url: '<?php echo $base_url.'act.php'; ?>',
+			url: '<?php echo $base_url.'/act.php'; ?>',
 			data: form_data,
 			contentType: false,
 			processData:false,
 			success: function(data) {
+				if (data.act.result === true) {
+					$('#idTableAlert').slideUp(function() {
+						$('#idTableAlert').html(data.alert);
+						$('#idTableAlert').slideDown();
+					});
+					load_table();
+					close_container('.cl-container-form');
+				}
 				$('#idFormAlert').slideUp(function() {
 					$('#idFormAlert').html(data.alert);
 					$('#idFormAlert').slideDown();

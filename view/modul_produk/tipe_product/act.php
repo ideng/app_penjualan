@@ -29,10 +29,12 @@ if ($post_act == 'view_form') {
 	include_once 'v_form.php';
 } elseif ($post_act == 'submit_form') {
 	$submit_data = [
-		'kd_tipe_produk' => input_post('txtKode'),
-		'kd_parent_tipe' => input_post('txtNamaTipeProduk'),
-		'nm_tipe_produk' => input_post('selTipeParent'),
+		'kd_parent_tipe' => (int) empty_replace(input_post('selTipeParent'), NULL),
+		'nm_tipe_produk' => input_post('txtNamaTipeProduk'),
 	];
+	if (!empty(input_post('txtKode'))) {
+		$submit_data = array_merge($submit_data, ['kd_tipe_produk' => input_post('txtKode')]);
+	}
 	
 	$data = $M_Tipe_Produk->submit_data($submit_data);
 	

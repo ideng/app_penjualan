@@ -23,8 +23,12 @@
 				<button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Sembunyikan"><i class="fa fa-minus"></i></button>
 			</div>
 		</div>
-		<div class="box-body" id="idBoxTable">
-			Start creating your amazing application!
+		<div class="box-body">
+			<div id="idBoxLoader" class="cl-box-loader" style="color: #337ab7; text-align: center;">
+				<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+			</div>
+			<div id="idTableAlert"></div>
+			<div id="idBoxTable"></div>
 		</div><!-- /.box-body -->
 	</div><!-- /.box -->
 
@@ -45,13 +49,17 @@
 
 	function load_table() {
 		$('#idBoxTable').slideUp(function() {
-			$.ajax({
-				type: 'POST',
-				url: 'view/modul_admin/tipe_admin/v_table.php',
-				success: function(html) {
-					$('#idBoxTable').html(html);
-					$('#idBoxTable').slideDown();
-				}
+			$('#idBoxLoader').fadeIn(function() {
+				$.ajax({
+					type: 'POST',
+					url: '<?php echo $base_url.'v_table.php'; ?>',
+					success: function(html) {
+						$('#idBoxTable').html(html);
+						$('#idBoxLoader').fadeOut(function() {
+							$('#idBoxTable').slideDown();
+						});
+					}
+				});
 			});
 		});
 	}

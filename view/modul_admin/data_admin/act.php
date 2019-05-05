@@ -42,15 +42,17 @@ if ($post_act == 'view_form') {
 	endif;
 	if ($chk_username > 0 || !$chk_password || (empty(input_post('txtKode')) && empty(input_post('txtPassword')))) {
 		if ($chk_username > 0) {
-			$data['alert'] = 'User ID sudah digunakan, gunakan User ID lain!';
+			$data['alert'] = render_alert('warning', TRUE, 'fa-exclamation', 'Peringatan!', 'User ID sudah digunakan, gunakan User ID lain!');
+			$data['act']['result'] = FALSE;
 		} elseif (!$chk_password) {
-			$data['alert'] = 'Password tidak sama dengan Konfirmasi Password!';
+			$data['alert'] = render_alert('warning', TRUE, 'fa-exclamation', 'Peringatan!', 'Password tidak sama dengan Konfirmasi Password!');
+			$data['act']['result'] = FALSE;
 		} elseif (empty(input_post('txtKode')) && empty(input_post('txtPassword'))) {
-			$data['alert'] = 'Password Harus Diisi!';
+			$data['alert'] = render_alert('warning', TRUE, 'fa-exclamation', 'Peringatan!', 'Password Harus Diisi!');
+			$data['act']['result'] = FALSE;
 		}
 	} else {
 		$submit_data = [
-			'kd_user' => input_post('txtKode'),
 			'tipe_admin_kd' => input_post('selTipeAdmin'),
 			'user_id' => input_post('txtUserId'),
 			'user_name' => input_post('txtUserName'),
@@ -58,6 +60,9 @@ if ($post_act == 'view_form') {
 		if (!empty(input_post('txtPassword'))) :
 			$submit_data = array_merge($submit_data, ['user_pass' => hash_text(input_post('txtPassword'))]);
 		endif;
+		if (!empty(input_post('txtKode'))) {
+			$submit_data = array_merge($submit_data, ['kd_user' => input_post('txtKode')]);
+		}
 		$data = $m_admin->submit_data($submit_data);
 	}
 

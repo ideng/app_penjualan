@@ -156,8 +156,11 @@ class M_admin {
 			$act = self::update($data, [$this->p_key => $data[$this->p_key]]);
 		}
 		$err_msg = $act['result']?'Berhasil':'Gagal';
+		$is_success = $act['result']?'success':'danger';
+		$icon = $act['result']?'fa-check':'fa-ban';
+		$alert = $err_msg.' '.$label.' '.$this->title_name;
 		$msg['act'] = $act;
-		$msg['alert'] = $err_msg.' '.$label.' Data Admin!';
+		$msg['alert'] = render_alert($is_success, TRUE, $icon, $err_msg, $alert);
 		return $msg;
 	}
 }

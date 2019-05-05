@@ -102,10 +102,15 @@ function empty_replace($str = '', $replace = '-') {
 	return $str;
 }
 
-function render_alert() {
-	$alert = '<div class="alert alert-danger alert-dismissable">';
-	$alert .= '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-	<h4><i class="icon fa fa-ban"></i> Alert!</h4>
-	Danger alert preview. This alert is dismissable. A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.
-	</div>';
+function render_alert($type = 'danger', $is_dissmissable = TRUE, $icon = 'fa-ban', $title = 'Alert!', $msg = 'This is Alert!') {
+	$dissmissable = $is_dissmissable?'alert-dissmissable':'';
+	$alert = '<div class="alert alert-'.$type.' '.$dissmissable.'">';
+		if ($is_dissmissable) {
+			$alert .= '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
+		}
+		$alert .= '<h4><i class="icon fa '.$icon.'"></i> '.$title.'</h4>';
+		$alert .= $msg;
+	$alert .= '</div>';
+
+	return $alert;
 }

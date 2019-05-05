@@ -151,8 +151,11 @@ class M_tipe_produk {
 			$act = self::update($data, [$this->p_key => $data[$this->p_key]]);
 		}
 		$err_msg = $act['result']?'Berhasil':'Gagal';
+		$is_success = $act['result']?'success':'danger';
+		$icon = $act['result']?'fa-check':'fa-ban';
+		$alert = $err_msg.' '.$label.' '.$this->title_name;
 		$msg['act'] = $act;
-		$msg['alert'] = $err_msg.' '.$label.' '.$this->title_name;
+		$msg['alert'] = render_alert($is_success, TRUE, $icon, $label, $alert);
 		return $msg;
 	}
 
